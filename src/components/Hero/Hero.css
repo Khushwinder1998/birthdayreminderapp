@@ -1,0 +1,55 @@
+.hero {
+  padding: 1rem;
+}
+.hero h1 {
+  display: none;
+}
+form * {
+  display: block;
+  width: 100%;
+}
+form {
+  background-color: #97b191;
+  padding: 2rem !important;
+  box-shadow: 5px 5px 7px;
+}
+form h2 {
+  margin-bottom: 0.3rem;
+}
+form input {
+  padding: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+form button {
+  padding: 0.3rem !important;
+  border: dotted black 2px;
+  background-color: #aac3a5;
+}
+form button:hover {
+  border: solid 2px;
+}
+form p {
+  text-align: center;
+}
+.errors {
+  color: red;
+}
+.majorerror {
+  background-color: rgba(241, 80, 80, 0.562);
+  margin-bottom: 0.3rem;
+  padding: 0.5rem 0;
+}
+@media all and (min-width: 768px) {
+  .hero {
+    width: 80%;
+    margin: auto;
+    margin-top: 5vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10vh;
+  }
+  .hero h1 {
+    display: unset;
+    font-size: 3rem;
+  }
+}
