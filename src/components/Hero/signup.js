@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { PersonContext } from '../../Mainpage'
 export default function Signup() {
   const {
+    signUpAuthenticationError,
     signUpChangeHandler,
     signUpSubmitHandler,
     signUpPerson,
@@ -57,6 +58,9 @@ export default function Signup() {
       />
       {signUpErrors.password2 && (
         <p className='errors'>{signUpErrors.password2}</p>
+      )}
+      {signUpAuthenticationError && (
+        <p className='majorerror'>{signUpAuthenticationError}</p>
       )}
       <button type='submit'>Sign Up</button>
     </form>

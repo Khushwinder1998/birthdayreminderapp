@@ -8,8 +8,10 @@ import './Mainpage.css'
 
 export const PersonContext = React.createContext() //create context
 export default function Mainpage() {
-  const [loginError, setLoginError] = useState('')
+  const [loginAuthenticationError, setLoginAuthenticationError] = useState('')
+  const [signUpAuthenticationError, setSignUpAuthenticationError] = useState('')
   const [activeUser, setActiveUser] = useState() //activeuser
+  const [welcomeFirstName, setWelcomeFirstName] = useState()
   //number of users
   const [users, setUsers] = useState(() => {
     const localUsers = localStorage.getItem('users')
@@ -18,41 +20,50 @@ export default function Mainpage() {
   //isSubmitted to direct to welcome page if signin or signup is true
   const [isSubmitted, setIsSubmitted] = useState(false)
   //custom hook used for signup
+  const welcomePageFirstName = () => {
+    if (signInFirstName) {
+      setWelcomeFirstName(signInFirstName)
+    } else {
+      setWelcomeFirstName(signUpPerson.firstName)
+    }
+  }
   const {
+    signUpLoad,
     signUpChangeHandler,
     signUpSubmitHandler,
     signUpPerson,
     signUpErrors,
     signUpSubmit,
-  } = useHero()
+  } = useHero({ users })
   //custom hook for signin
   const {
-    load,
+    signInLoad,
     signInFirstName,
     signInLoginSuccess,
     signInPerson,
     signInErrors,
     signInChangeHandler,
     signInLoginHandler,
-  } = useLoginChecker({
-    users,
-  })
+  } = useLoginChecker({ users })
   //useEffect to add new user to the users array if signup is successful
   useEffect(() => {
     if (Object.keys(signUpErrors).length === 0 && signUpSubmit) {
+      welcomePageFirstName()
       setUsers((prevUsers) => [...prevUsers, signUpPerson])
       setActiveUser(signUpPerson)
-      console.log(activeUser)
       setIsSubmitted(true)
+    } else if (signUpLoad && Object.keys(signUpErrors).length === 0) {
+      setSignUpAuthenticationError('Email already exists')
     }
   }, [signUpErrors])
   //useEffect to take user to welcomepage if signin is successful
   useEffect(() => {
     if (Object.keys(signInErrors).length === 0 && signInLoginSuccess) {
+      welcomePageFirstName()
       setActiveUser(signInPerson)
       setIsSubmitted(true)
-    } else if (load && Object.keys(signInErrors).length === 0) {
-      setLoginError('Authentication Failed')
+    } else if (signInLoad && Object.keys(signInErrors).length === 0) {
+      setLoginAuthenticationError('Authentication Failed')
     }
   }, [signInErrors])
   //useEfect to setitem on storage when users renders
@@ -63,16 +74,18 @@ export default function Mainpage() {
     <>
       <PersonContext.Provider
         value={{
+          signUpAuthenticationError,
           signUpChangeHandler,
           signUpSubmitHandler,
           signUpPerson,
           signUpErrors,
           signUpSubmit,
+          loginAuthenticationError,
           signInPerson,
           signInErrors,
           signInChangeHandler,
           signInLoginHandler,
-          loginError,
+
           users,
         }}
       >
@@ -80,7 +93,10 @@ export default function Mainpage() {
         {!isSubmitted ? (
           <Hero />
         ) : (
-          <Portfolio activeUserName={signInFirstName} activeUser={activeUser} />
+          <Portfolio
+            welcomeFirstName={welcomeFirstName}
+            activeUser={activeUser}
+          />
         )}
       </PersonContext.Provider>
     </>

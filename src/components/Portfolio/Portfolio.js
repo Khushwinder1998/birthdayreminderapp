@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Portfolio.css'
 import formValidator from './functions/formvalidator'
-export default function Portfolio({ activeUserName, activeUser }) {
+export default function Portfolio({ welcomeFirstName, activeUser }) {
   const [errorsAddHuman, setErrorsAddHuman] = useState({})
   const [addClicked, setAddClicked] = useState(false)
   const [arrayName, setArrayName] = useState(() => {
@@ -34,7 +34,7 @@ export default function Portfolio({ activeUserName, activeUser }) {
 
   return (
     <div>
-      <h1>Welcome {activeUserName}</h1>
+      <h1>Welcome {welcomeFirstName}</h1>
       <div className='cards'>
         <form onSubmit={addHuman}>
           <label htmlFor='name'>Name:</label>

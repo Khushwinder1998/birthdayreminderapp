@@ -2,11 +2,11 @@ import { useContext } from 'react'
 import { PersonContext } from '../../Mainpage'
 export default function SignIn({ setSignupTrue }) {
   const {
+    loginAuthenticationError,
     signInPerson,
     signInErrors,
     signInChangeHandler,
     signInLoginHandler,
-    loginError,
   } = useContext(PersonContext)
   return (
     <form method='get' onSubmit={signInLoginHandler}>
@@ -29,7 +29,9 @@ export default function SignIn({ setSignupTrue }) {
       {signInErrors.password && (
         <p className='errors'>{signInErrors.password}</p>
       )}
-      {loginError && <p className='majorerror'>{loginError}</p>}
+      {loginAuthenticationError && (
+        <p className='majorerror'>{loginAuthenticationError}</p>
+      )}
       <button type='submit'>Sign In</button>
       <p>OR</p>
       <button type='button' onClick={setSignupTrue}>

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import CheckErrors from '../Functions/CheckErrors'
-export default function useHero() {
+export default function useHero({ users }) {
   //states
+  const [signUpLoad, setSignUpLoad] = useState(false)
   const [signUpPerson, setsignUpPerson] = useState({
     firstName: '',
     lastName: '',
@@ -18,10 +19,18 @@ export default function useHero() {
   }
   const signUpSubmitHandler = (e) => {
     e.preventDefault()
+    setSignUpLoad(true)
     setsignUpErrors(CheckErrors(signUpPerson))
-    setsignUpSubmit(true)
+    users.forEach((value) => {
+      if (value.email === signUpPerson.email) {
+        setsignUpSubmit(false)
+      } else {
+        setsignUpSubmit(true)
+      }
+    })
   }
   return {
+    signUpLoad,
     signUpPerson,
     setsignUpPerson,
     signUpErrors,
