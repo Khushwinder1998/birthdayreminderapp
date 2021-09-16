@@ -1,4 +1,33 @@
-.cards {
+.portfolio {
+  padding: 1rem;
+}
+.portfolio h1 {
+  margin-bottom: 1rem;
+}
+.portfolio form {
+  max-width: 300px;
+}
+.portfolio button {
+  padding: 1rem !important;
+}
+.card {
+  margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 1rem;
+}
+.cards {
+  background-color: #97b191;
+  padding: 2rem !important;
+  box-shadow: 5px 5px 7px;
+}
+.cards button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.3rem !important;
+  background-color: #aac3a5;
+  border: solid black 2px;
+}
+.cards button:hover {
+  background-color: #bddab7;
 }

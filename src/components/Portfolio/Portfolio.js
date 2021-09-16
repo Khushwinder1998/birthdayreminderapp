@@ -33,48 +33,49 @@ export default function Portfolio({ welcomeFirstName, activeUser }) {
   }, [arrayName])
 
   return (
-    <div>
+    <div className='portfolio'>
       <h1>Welcome {welcomeFirstName}</h1>
-      <div className='cards'>
-        <form onSubmit={addHuman}>
-          <label htmlFor='name'>Name:</label>
-          <input
-            type='text'
-            name='name'
-            value={human.name}
-            onChange={ChangeHandler}
-          />
-          {errorsAddHuman.name && (
-            <p className='errors'>{errorsAddHuman.name}</p>
-          )}
-          <label htmlFor='relation'>Relation:</label>
-          <input
-            type='text'
-            name='relation'
-            value={human.relation}
-            onChange={ChangeHandler}
-          />
-          {errorsAddHuman.relation && (
-            <p className='errors'>{errorsAddHuman.relation}</p>
-          )}
-          <label htmlFor='date'>DOB:</label>
-          <input
-            type='date'
-            name='date'
-            value={human.date}
-            onChange={ChangeHandler}
-          />
-          {errorsAddHuman.date && (
-            <p className='errors'>{errorsAddHuman.date}</p>
-          )}
-          <button type='submit'>Add</button>
-        </form>
+      <form onSubmit={addHuman}>
+        <label htmlFor='name'>Name:</label>
+        <input
+          type='text'
+          name='name'
+          value={human.name}
+          onChange={ChangeHandler}
+        />
+        {errorsAddHuman.name && <p className='errors'>{errorsAddHuman.name}</p>}
+        <label htmlFor='relation'>Relation:</label>
+        <input
+          type='text'
+          name='relation'
+          value={human.relation}
+          onChange={ChangeHandler}
+        />
+        {errorsAddHuman.relation && (
+          <p className='errors'>{errorsAddHuman.relation}</p>
+        )}
+        <label htmlFor='date'>DOB:</label>
+        <input
+          type='date'
+          name='date'
+          value={human.date}
+          onChange={ChangeHandler}
+        />
+        {errorsAddHuman.date && <p className='errors'>{errorsAddHuman.date}</p>}
+        <button type='submit'>
+          <i class='fas fa-plus fa-2x'></i>
+        </button>
+      </form>
+      <div className='card'>
         {arrayName.map((value) => {
           return (
-            <div>
-              <h3>{value.name}</h3>
-              <h3>{value.relation}</h3>
-              <h3>{value.date}</h3>
+            <div className='cards'>
+              <p>
+                <strong>Name: {value.name}</strong>
+              </p>
+              <p>Relation: {value.relation}</p>
+              <p>DOB: {value.date}</p>
+              <button>Delete</button>
             </div>
           )
         })}
