@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import CheckErrorsForSignIn from '../Functions/checkErrorsForSignIn'
 export default function useLoginChecker({ users }) {
-  const [load, setLoad] = useState(false)
+  const [signInLoad, setSignInLoad] = useState(false)
   const [signInFirstName, setsignInFirstName] = useState('')
   const [signInLoginSuccess, setsignInLoginSuccess] = useState(false)
   const [signInPerson, setsignInPerson] = useState({
@@ -16,7 +16,7 @@ export default function useLoginChecker({ users }) {
   }
   const signInLoginHandler = (e) => {
     e.preventDefault()
-    setLoad(true)
+    setSignInLoad(true)
     setsignInErrors(CheckErrorsForSignIn(signInPerson))
     users.forEach((value) => {
       if (
@@ -29,7 +29,7 @@ export default function useLoginChecker({ users }) {
     })
   }
   return {
-    load,
+    signInLoad,
     signInFirstName,
     signInLoginSuccess,
     signInPerson,
