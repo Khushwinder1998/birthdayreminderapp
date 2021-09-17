@@ -21,11 +21,10 @@ export default function useHero({ users }) {
     e.preventDefault()
     setSignUpLoad(true)
     setsignUpErrors(CheckErrors(signUpPerson))
+    setsignUpSubmit(true)
     users.forEach((value) => {
       if (value.email === signUpPerson.email) {
         setsignUpSubmit(false)
-      } else {
-        setsignUpSubmit(true)
       }
     })
   }

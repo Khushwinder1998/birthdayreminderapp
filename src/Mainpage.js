@@ -8,7 +8,8 @@ import './Mainpage.css'
 
 export const PersonContext = React.createContext() //create context
 export default function Mainpage() {
-  const [loginAuthenticationError, setLoginAuthenticationError] = useState('')
+  const [loginAuthenticationError, setLoginAuthenticationError] =
+    useState(false)
   const [signUpAuthenticationError, setSignUpAuthenticationError] = useState('')
   const [activeUser, setActiveUser] = useState() //activeuser
   const [welcomeFirstName, setWelcomeFirstName] = useState()
@@ -52,7 +53,7 @@ export default function Mainpage() {
       setUsers((prevUsers) => [...prevUsers, signUpPerson])
       setActiveUser(signUpPerson)
       setIsSubmitted(true)
-    } else if (signUpLoad && Object.keys(signUpErrors).length === 0) {
+    } else if (signUpLoad && !signUpSubmit) {
       setSignUpAuthenticationError('Email already exists')
     }
   }, [signUpErrors])
@@ -85,7 +86,6 @@ export default function Mainpage() {
           signInErrors,
           signInChangeHandler,
           signInLoginHandler,
-
           users,
         }}
       >

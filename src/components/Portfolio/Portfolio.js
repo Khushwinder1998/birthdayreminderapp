@@ -9,6 +9,7 @@ export default function Portfolio({ welcomeFirstName, activeUser }) {
     return localArrayName ? JSON.parse(localArrayName) : []
   })
   const [human, setHuman] = useState({
+    // id: new Date().getTime().toString(),
     name: '',
     relation: '',
     date: '',
@@ -25,12 +26,29 @@ export default function Portfolio({ welcomeFirstName, activeUser }) {
 
   useEffect(() => {
     if (Object.keys(errorsAddHuman).length === 0 && addClicked) {
-      setArrayName((prev) => [...prev, human])
+      const humanWithUniqueKey = {
+        id: new Date().getTime().toString(),
+        name: human.name,
+        relation: human.relation,
+        date: human.date,
+      }
+      setArrayName((prev) => [...prev, humanWithUniqueKey])
+      setHuman({
+        name: '',
+        relation: '',
+        date: '',
+      })
     }
   }, [errorsAddHuman])
   useEffect(() => {
     localStorage.setItem(activeUser.email, JSON.stringify(arrayName))
   }, [arrayName])
+
+  const DeleteItemFromPortfolio = (id) => {
+    console.log('it ran')
+    const newPeople = arrayName.filter((value) => value.id !== id)
+    setArrayName(newPeople)
+  }
 
   return (
     <div className='portfolio'>
@@ -63,19 +81,21 @@ export default function Portfolio({ welcomeFirstName, activeUser }) {
         />
         {errorsAddHuman.date && <p className='errors'>{errorsAddHuman.date}</p>}
         <button type='submit'>
-          <i class='fas fa-plus fa-2x'></i>
+          <i className='fas fa-plus fa-2x'></i>
         </button>
       </form>
       <div className='card'>
         {arrayName.map((value) => {
           return (
-            <div className='cards'>
+            <div className='cards' key={value.id}>
               <p>
                 <strong>Name: {value.name}</strong>
               </p>
               <p>Relation: {value.relation}</p>
               <p>DOB: {value.date}</p>
-              <button>Delete</button>
+              <button onClick={() => DeleteItemFromPortfolio(value.id)}>
+                Delete
+              </button>
             </div>
           )
         })}
